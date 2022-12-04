@@ -12,4 +12,22 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    public static final int leftPort = 1;
+    public static final int rightPort = 2;
+
+    public static final double radiusInInch = 6.5;
+    public static final double inchToMeters = 0.0254;
+    public static final double radius = inchToMeters * radiusInInch;
+
+    public static final double pi = 3.14159;
+    public static final double circum = 2 * pi * radius;
+
+    public static final int ticksToMeters = 4096; // divide ticks by this to get meters.
+    
+    public static final class PIDConstants{
+        public static final double kP = 0.002;
+        public static final double kI = 0;
+        public static final double kD = 0;
+    }
+}
