@@ -5,6 +5,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import org.opencv.core.TickMeter;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -35,10 +38,13 @@ public class DriveTrain extends SubsystemBase {
     //Sets how fast it should drive
   }
   public double getLeftPos(){
-    return left.getSelectedSensorPosition()/Constants.ticksToMeters;
+    return left.getSelectedSensorPosition()*Constants.ticksToMeters;
   }
-  public double getLeftPos(){
-    return left.getSelectedSensorPosition()/Constants.ticksToMeters;
+  public double getRightPos(){
+    return right.getSelectedSensorPosition()*Constants.ticksToMeters;
+  }
+  public double getPos(){
+    return ((left.getSelectedSensorPosition()+right.getSelectedSensorPosition())/(2*Constants.ticksToMeters));
   }
 
   public void resetEncoders(){

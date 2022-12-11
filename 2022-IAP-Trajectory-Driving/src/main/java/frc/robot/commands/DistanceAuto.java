@@ -22,20 +22,13 @@ public class DistanceAuto extends CommandBase{
         pid = new PIDController(Constants.PIDConstants.kP, Constants.PIDConstants.kI, Constants.PIDConstants.kD);
         pid.setSetpoint(pos);
     }
+
     public void execute(){
-        if(driveTrain.getPos() < pos){
-            driveTrain.tankDrive(0.6, 0.6);
-        }
-        else{
-            driveTrain.tankDrive(0,0);
-        }
-        pid.calculate();
+        pid.calculate(driveTrain.getLeftPos());
     }
+
     @Override
     public boolean isFinished(){
-        if(driveTrain.getPos() < pos){
-            return false;
-        }
-        return true;
+        return Math.abs(pos - driveTrain.getLeftPos()) < 0.1;
     }
 }
