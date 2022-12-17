@@ -13,6 +13,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.SPI;
 //These are the imports to the files where we can access different methods
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -51,6 +52,7 @@ public class DriveTrain extends SubsystemBase {
     left.setSelectedSensorPosition(0,0,10);
     right.setSelectedSensorPosition(0,0,10);
   }
+
   public double getAngle(){
     return navx.getAngle(); 
   }
@@ -60,6 +62,7 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Angle: ", getAngle());
     tankDrive(RobotContainer.getJoy1().getY(), RobotContainer.getJoy2().getY());
   }
   

@@ -7,8 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.DistanceAuto;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.TurnAuto;
+import frc.robot.commands.TurnAngle;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,20 +25,25 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final static DriveTrain drive = new DriveTrain();
+  private static DriveTrain drive;
   private static Joystick joy1;
   private static Joystick joy2;
-  private final static DistanceAuto _distanceAuto;
-  private final static TurnAuto turnAuto = new TurnAuto(90);
+  private final DistanceAuto _distanceAuto;
+  private final TurnAngle turnAngle;
+  //private final static TurnAuto turnAuto = new TurnAuto(90);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    joy1 = new Joystick(Constants.joy1);
-    joy2 = new Joystick(Constants.joy2);
+    joy1 = new Joystick(Constants.leftPort);
+    joy2 = new Joystick(Constants.rightPort);
+    
     drive = new DriveTrain();
+    drive.resetEncoders();
+
     _distanceAuto = new DistanceAuto (drive, 1);
-    drive.setDefaultCommand(_distanceAuto);
-   
+    turnAngle = new TurnAngle(drive, 90);
+    
+    drive.setDefaultCommand(turnAngle);
     configureButtonBindings();
   }
 
@@ -54,10 +60,6 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return turnAuto;
-  }
   public static Joystick getJoy1(){
     return joy1;
   }
@@ -68,6 +70,6 @@ public class RobotContainer {
     return drive;
   }
   public Command getAutonomousCommand(){
-    return _distanceAuto;
+    return turnAngle;
   }
 }

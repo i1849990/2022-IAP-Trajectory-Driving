@@ -23,7 +23,7 @@ public final class Constants {
     public static final double pi = 3.14159;
     public static final double circum = 2 * pi * radius;
 
-    public static final double ticksToMeters = (2* 3.14159 * 0.075)/4096; // divide ticks by this to get meters.
+    public static final double ticksToMeters = (2*Math.PI* 0.075)/4096; // divide ticks by this to get meters.
     //4096 ticks per revolution
     //1 revolution is 2 * pi * r
     //pi = 3.14159
@@ -31,8 +31,8 @@ public final class Constants {
     //Therefore ticks to meters = ticks * (1/4096)
     
     public static final class PIDConstants{
-        public static final double kP = 6.6544;
+        public static final double kP = 0.009;
         public static final double kI = 0;
-        public static final double kD = 4.833;
+        public static final double kD = 0;
     }
 }

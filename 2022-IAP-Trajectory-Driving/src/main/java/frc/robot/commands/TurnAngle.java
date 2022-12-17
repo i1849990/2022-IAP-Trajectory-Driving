@@ -30,22 +30,11 @@ public class TurnAngle extends CommandBase{
     }
 
     public void execute(){
-        error = Math.abs(angle - ((driveTrain.getAngle());
-        if(angle>= 180 && Math.abs(angle - ((driveTrain.getAngle()))) > 0.1){
-            driveTrain.tankDrive(0.3, -0.3);
-        }else if(angle< 180 && Math.abs(angle - ((driveTrain.getAngle()))) > 0.1){
-            driveTrain.tankDrive(-0.3, 0.3);
-        }else{
-            driveTrain.tankDrive(0, 0);
-        }
-        pid.calculate(driveTrain.getAngle());
-        SmartDashboard.putNumber("angle: ", angle);
+        driveTrain.tankDrive(pid.calculate(driveTrain.getAngle()),-1 * pid.calculate(driveTrain.getAngle()));
     }
 
     @Override
     public boolean isFinished(){
-        return (error < 0.1);
+        return (Math.abs(angle - driveTrain.getAngle()) < 1);
     }
-}
-
 }
